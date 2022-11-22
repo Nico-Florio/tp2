@@ -7,13 +7,13 @@ def leer_archivo():
     with open('multas.csv', 'r') as archivo_csv:
         lector = csv.reader(archivo_csv, delimiter=',')
         for linea in lector:
-            timestamp = linea[0]
-            telefono = linea[1]
-            latitud = linea[2]
-            longitud = linea[3]
-            ruta_foto = linea[4]
-            descripcion = linea[5]
-            ruta_audio = linea[6]
+            timestamp: str = linea[0]
+            telefono: str = linea[1]
+            latitud: int = linea[2]
+            longitud: int = linea[3]
+            ruta_foto: str = linea[4]
+            descripcion: str = linea[5]
+            ruta_audio: str = linea[6]
             infracciones[telefono] = (timestamp, telefono, latitud, longitud, ruta_foto, descripcion, ruta_audio)
     return infracciones
 
@@ -23,9 +23,9 @@ def leer_archivo():
 # descripción audio)
 def crear_archivo(infracciones: dict):
     for infraccion in infracciones:
-        timestamp = infracciones[infraccion][0]
-        telefono = infracciones[infraccion][1]
-        latitud = infracciones[infraccion][2]
-        longitud = infracciones[infraccion][3]
-        coordenadas = latitud + ", " + longitud
+        timestamp: str = infracciones[infraccion][0]
+        telefono: str = infracciones[infraccion][1]
+        latitud: int = infracciones[infraccion][2]
+        longitud: int = infracciones[infraccion][3]
+        coordenadas: str  = latitud + ", " + longitud
         direccion, localidad, provincia = obtener_direccion(coordenadas)

@@ -8,7 +8,9 @@ def main():
     infracciones = leer_archivo()
     cerrar_programa = False
     while not cerrar_programa:
+        cls()
         menu()
+        print()
         opcion_ok: bool = False
         while not opcion_ok:
             try:
@@ -20,11 +22,15 @@ def main():
             except ValueError:
                 print("Opcion invalida")
         if opcion == 1:
+            cls()
             crear_archivo(infracciones)
         elif opcion == 2:
-            infracciones_estadio(infracciones)
+            cls()
+            estadio = mostrar_estadios()            
+            infracciones_estadio(infracciones, estadio)
         elif opcion == 3:
-            infracciones_cuadrante(infracciones)
+            cls()
+            infracciones_microcentro(infracciones)
         elif opcion == 4:
             pass
         elif opcion == 5:
