@@ -22,9 +22,9 @@ def main():
         if opcion == 1:
             crear_archivo(infracciones)
         elif opcion == 2:
-            pass
+            infracciones_estadio(infracciones)
         elif opcion == 3:
-            pass
+            infracciones_cuadrante(infracciones)
         elif opcion == 4:
             pass
         elif opcion == 5:
