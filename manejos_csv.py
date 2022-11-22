@@ -2,7 +2,28 @@ import csv
 import os
 import json
 from geopy.geocoders import Nominatim
+import speech_recognition as sr
 
+
+CORDOBA_Y_ALEM = '-34.5983795,-58.3725168'
+ALEM_Y_RIVADAVIA = '-34.6072815,-58.372162'
+RIVADAVIA_Y_CALLAO = '-34.6091603,-58.3924939'
+CALLAO_Y_CORDOBA = '-34.5996235,-58.3951324'
+
+
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
+
+
+def obtener_direccion(coordenadas: str):
+    geolocator = Nominatim(user_agent="manejo_csv")
+    location = geolocator.reverse(coordenadas, language="es", exactly_one=True)
+    direccion = location.raw['address']['house_number'] + " " + location.raw['address']['road']
+    localidad = location.raw['address']['city']
+    provincia = location.raw['address']['state']
+    return direccion, localidad, provincia
+    
 
 def leer_archivo():
     infracciones: dict = {}
@@ -16,28 +37,33 @@ def leer_archivo():
             ruta_foto = linea[4]
             descripcion = linea[5]
             ruta_audio = linea[6]
-            infracciones[telefono] = {timestamp, telefono, latitud, longitud, ruta_foto, descripcion, ruta_audio}
+            infracciones[telefono] = (timestamp, telefono, latitud, longitud, ruta_foto, descripcion, ruta_audio)
     return infracciones
+
 
 
 # Con la información leída del archivo CSV, se pide crear un nuevo archivo CSV que contenga los siguientes 
 # campos: (Timestamp,Teléfono, Dirección de la infracción, Localidad, Provincia, patente, descripción texto, 
 # descripción audio)
-def crear_nuevo_csv(infracciones: dict):
-    with open('multas_nuevo.csv', 'w') as archivo_csv:
-        escritor = csv.writer(archivo_csv, delimiter=',')
-        escritor.writerow(['Timestamp', 'Telefono', 'Direccion', 'Localidad', 'Provincia', 'Patente', 'Descripcion texto', 'Descripcion audio'])
-        geolocator = Nominatim(user_agent="multas")
-        for infraccion in infracciones:
-            direccion = geolocator.reverse(infraccion[2] + ',' + infraccion[3])
-            escritor.writerow([infraccion[0], infraccion[1], direccion['road'], direccion['city'], direccion['state']])
-            print(f'''
-            Fecha: {infraccion[0]}
-            Telefono: {infraccion[1]}
-            Direccion: {direccion['road']}
-            Localidad: {direccion['city']}
-            Provincia: {direccion['state']}
-            ''')
+def crear_archivo(infracciones: dict):
+    for infraccion in infracciones:
+        timestamp = infracciones[infraccion][0]
+        telefono = infracciones[infraccion][1]
+        latitud = infracciones[infraccion][2]
+        longitud = infracciones[infraccion][3]
+        coordenadas = latitud + ", " + longitud
+        direccion, localidad, provincia = obtener_direccion(coordenadas)
+        print("\n", direccion, "\n", localidad, "\n", provincia, "\n")
+        
 
-diccionario = leer_archivo()    
-crear_nuevo_csv(diccionario)
+
+
+
+
+
+def menu():
+    print(obtener_direccion(RIVADAVIA_Y_CALLAO))
+
+    diccionario: dict = leer_archivo()
+        
+menu()
