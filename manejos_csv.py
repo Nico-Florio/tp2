@@ -1,29 +1,6 @@
 import csv
-import os
-import json
-from geopy.geocoders import Nominatim
-import speech_recognition as sr
+from funciones import *
 
-
-CORDOBA_Y_ALEM = '-34.5983795,-58.3725168'
-ALEM_Y_RIVADAVIA = '-34.6072815,-58.372162'
-RIVADAVIA_Y_CALLAO = '-34.6091603,-58.3924939'
-CALLAO_Y_CORDOBA = '-34.5996235,-58.3951324'
-
-
-
-def cls():
-    os.system('cls' if os.name=='nt' else 'clear')
-
-
-def obtener_direccion(coordenadas: str):
-    geolocator = Nominatim(user_agent="manejo_csv")
-    location = geolocator.reverse(coordenadas, language="es", exactly_one=True)
-    direccion = location.raw['address']['house_number'] + " " + location.raw['address']['road']
-    localidad = location.raw['address']['city']
-    provincia = location.raw['address']['state']
-    return direccion, localidad, provincia
-    
 
 def leer_archivo():
     infracciones: dict = {}
@@ -41,7 +18,6 @@ def leer_archivo():
     return infracciones
 
 
-
 # Con la información leída del archivo CSV, se pide crear un nuevo archivo CSV que contenga los siguientes 
 # campos: (Timestamp,Teléfono, Dirección de la infracción, Localidad, Provincia, patente, descripción texto, 
 # descripción audio)
@@ -53,17 +29,3 @@ def crear_archivo(infracciones: dict):
         longitud = infracciones[infraccion][3]
         coordenadas = latitud + ", " + longitud
         direccion, localidad, provincia = obtener_direccion(coordenadas)
-        print("\n", direccion, "\n", localidad, "\n", provincia, "\n")
-        
-
-
-
-
-
-
-def menu():
-    print(obtener_direccion(RIVADAVIA_Y_CALLAO))
-
-    diccionario: dict = leer_archivo()
-        
-menu()

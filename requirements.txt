@@ -1,6 +1,6 @@
 geopy
 yolo
-opencv
+opencv-python
 SpeechRecognition
 imutils
 pytesseract
