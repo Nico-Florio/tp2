@@ -1,0 +1,6 @@
+geopy
+yolo
+opencv
+SpeechRecognition
+imutils
+pytesseract
