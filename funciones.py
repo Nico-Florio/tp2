@@ -43,7 +43,41 @@ def mostrar_estadios():
         except ValueError:
             print('Estadio no valido')
     coordenadas_del_estadio: str = estadios[estadio]
+    print(coordenadas_del_estadio)
     return coordenadas_del_estadio
+
+
+def fecha_a_partir_de_timestamp(timestamp: str):
+    fecha = timestamp.split(' ')[0]
+    dia = fecha.split('-')[2]
+    mes = fecha.split('-')[1]
+    if mes == '01':
+        mes = 'Enero'
+    elif mes == '02':
+        mes = 'Febrero'
+    elif mes == '03':
+        mes = 'Marzo'
+    elif mes == '04':
+        mes = 'Abril'
+    elif mes == '05':
+        mes = 'Mayo'
+    elif mes == '06':
+        mes = 'Junio'
+    elif mes == '07':
+        mes = 'Julio'
+    elif mes == '08':
+        mes = 'Agosto'
+    elif mes == '09':
+        mes = 'Septiembre'
+    elif mes == '10':
+        mes = 'Octubre'
+    elif mes == '11':
+        mes = 'Noviembre'
+    elif mes == '12':
+        mes = 'Diciembre'
+    anio = fecha.split('-')[0]
+    fecha = f'{dia} de {mes} de {anio}'
+    return fecha
 
 
 # DIRECCION A PARTIR DE COORDENADAS
@@ -80,7 +114,7 @@ def infracciones_microcentro(diccionario: dict):
                 lista_infracciones_microcentro.append(diccionario[telefono_de_infraccion])
         print('Infracciones en microcentro: ', len(lista_infracciones_microcentro))
         for i in range(len(lista_infracciones_microcentro)):
-            print(f"[{i}]  {lista_infracciones_microcentro[i]}")
+            print(f"[{i+1}]  {lista_infracciones_microcentro[i]}")
         print("presione una tecla para continuar")
         getch()
         lista_impresa = True
@@ -95,12 +129,18 @@ def infracciones_estadio(infracciones: dict, coordenadas_estadio: str):
             latitud = infracciones[telefono_de_infraccion][2]
             longitud = infracciones[telefono_de_infraccion][3]
             coordenadas = latitud + ", " + longitud
+            direccion,localidad,provincia = obtener_direccion(coordenadas)
+            fecha = fecha_a_partir_de_timestamp(infracciones[telefono_de_infraccion][0])
             distancia: float = distance.distance(coordenadas_estadio, coordenadas).km
+            print(distancia)
             if distancia <= 1:
                 lista_infracciones_estadio.append(infracciones[telefono_de_infraccion])
         print(f'Infracciones cercanas a este estadio: ', len(lista_infracciones_estadio))
         for i in range(len(lista_infracciones_estadio)):
-            print(f"[{i}]  {lista_infracciones_estadio[i]}")
+            print(f'''[{i+1}] {lista_infracciones_estadio[i][5]}
+En {direccion}, {localidad}, {provincia}
+El dia {fecha}
+''')
         print("presione una tecla para continuar")
         getch()
         lista_impresa = True

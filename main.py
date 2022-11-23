@@ -26,7 +26,7 @@ def main():
             crear_archivo(infracciones)
         elif opcion == 2:
             cls()
-            estadio = mostrar_estadios()            
+            estadio = mostrar_estadios()
             infracciones_estadio(infracciones, estadio)
         elif opcion == 3:
             cls()
