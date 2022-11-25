@@ -19,6 +19,7 @@ def leer_archivo():
     return infracciones
 
 
+
 # Con la información leída del archivo CSV, se pide crear un nuevo archivo CSV que contenga los siguientes 
 # campos: (Timestamp,Teléfono, Dirección de la infracción, Localidad, Provincia, patente, descripción texto, 
 # descripción audio)
@@ -34,4 +35,14 @@ def crear_archivo(infracciones: dict):
         direccion, localidad, provincia = obtener_direccion(coordenadas)
         patente: str = obtener_patente(ruta_foto)
         descripcion_audio: str = 0 #analisis de infracciones[infraccion][6]
-        
+
+
+
+a = leer_archivo()
+for i in a:
+    print(a[i])
+
+
+
+def robados():
+    pass
