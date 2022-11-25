@@ -34,7 +34,7 @@ def crear_archivo(infracciones: dict):
         coordenadas: str  = latitud + ", " + longitud
         direccion, localidad, provincia = obtener_direccion(coordenadas)
         patente: str = obtener_patente(ruta_foto)
-        descripcion_audio: str = 0 #analisis de infracciones[infraccion][6]
+        descripcion_audio: str = obtener_texto_audio(infracciones[infraccion][6])
 
 
 

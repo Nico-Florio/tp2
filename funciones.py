@@ -82,11 +82,17 @@ def fecha_a_partir_de_timestamp(timestamp: str):
 
 # DIRECCION A PARTIR DE COORDENADAS
 def obtener_direccion(coordenadas: str):
-    geolocator = Nominatim(user_agent="manejo_csv")
-    location = geolocator.reverse(coordenadas, language="es", exactly_one=True)
-    direccion = location.raw['address']['road'] + " " + location.raw['address']['house_number']
-    localidad = location.raw['address']['state']
-    provincia = location.raw['address']['city']
+    direccion = ""
+    localidad = ""
+    provincia = ""
+    try:
+        geolocator = Nominatim(user_agent="manejo_csv")
+        location = geolocator.reverse(coordenadas, language="es", exactly_one=True)
+        direccion = location.raw['address']['road'] + " " + location.raw['address']['house_number']
+        localidad = location.raw['address']['state']
+        provincia = location.raw['address']['city']
+    except:
+        pass
     return direccion, localidad, provincia
 
 
