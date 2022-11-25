@@ -1,5 +1,6 @@
 import csv
 from funciones import *
+from utils import *
 
 
 def leer_archivo():
