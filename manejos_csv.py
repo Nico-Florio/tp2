@@ -28,5 +28,10 @@ def crear_archivo(infracciones: dict):
         telefono: str = infracciones[infraccion][1]
         latitud: int = infracciones[infraccion][2]
         longitud: int = infracciones[infraccion][3]
+        ruta_foto: str = infracciones[infraccion][4]
+        descripcion_texto: str = infracciones[infraccion][5] 
         coordenadas: str  = latitud + ", " + longitud
         direccion, localidad, provincia = obtener_direccion(coordenadas)
+        patente: str = obtener_patente(ruta_foto)
+        descripcion_audio: str = 0 #analisis de infracciones[infraccion][6]
+        
