@@ -37,11 +37,54 @@ def crear_archivo(infracciones: dict):
 
 
 
-a = leer_archivo()
-for i in a:
-    print(a[i])
+# Funcion que se encarga de leer archivos robados
+def leer_archivo_txt() -> list:
+    patentes_robadas: list = []  
+    with open('robados.txt', 'r') as archivo_txt:
+        for linea in archivo_txt:
+            patente: str = linea
+            patentes_robadas.append(patente)
+    return patentes_robadas
 
 
 
-def robados():
-    pass
+#Funcion para mostrar los autos robados
+def robados(patentes_robadas: list):
+    infracciones: list = []
+    with open('multas.csv', 'r') as archivo_csv:
+        lector = csv.reader(archivo_csv, delimiter=',')
+        for linea in lector:
+
+            timestamp: str = linea[0]
+            telefono: str = linea[1]
+            latitud: int = linea[2]
+            longitud: int = linea[3]
+            ruta_foto: str = linea[4]
+            # print(ruta_foto)
+            patente = obtener_patente(ruta_foto)
+            descripcion: str = linea[5]
+            ruta_audio: str = linea[6]
+            audio_texto: str = obtener_texto_audio(ruta_audio)
+            coordenadas: str = latitud + ", " + longitud
+
+            informe = {
+                "timestamp": timestamp, 
+                "telefono": telefono, 
+                "latitud": latitud, 
+                "longitud": longitud, 
+                "ruta_foto": ruta_foto,
+                "patente": patente,
+                "descripcion": descripcion, 
+                "audio_text": audio_texto,
+                "coordenadas": coordenadas
+                    }
+            infracciones.append(informe)
+            
+    for infraccion in infracciones:
+        if infraccion["patente"] in patentes_robadas:
+            patente1 = infraccion["patente"]
+            print(f"Auto robado de patente: {patente1}")
+            print("Fecha en la que se reporto la infraccion:")
+            print(infraccion["timestamp"])
+            print("Ubicacion:")
+            print(obtener_direccion(infraccion["coordenadas"]))
