@@ -36,7 +36,7 @@ def main():
         elif opcion == 5:
             pass
         elif opcion == 6:
-            pass
+            grafico(infracciones)
         elif opcion == 7:
             print("Gracias por utilizar el sistema")
             print("Presione cualquier tecla para salir")
