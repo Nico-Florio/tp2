@@ -2,7 +2,7 @@ import os
 from geopy.geocoders import Nominatim
 from geopy import distance
 from msvcrt import getch
-
+from matplotlib import pyplot as plt
 
 # CLEAR SCREEN
 def cls():
@@ -151,4 +151,52 @@ El dia {fecha}
         getch()
         lista_impresa = True
 
+# funcion que se encarga de armar un grafico de barras con las infracciones por mes    
+def grafico(infracciones:dict):
+    infracciones_enero: int = 0
+    infracciones_febrero: int = 0
+    infracciones_marzo: int = 0
+    infracciones_abril: int = 0
+    infracciones_mayo : int = 0
+    infracciones_junio : int = 0
+    infracciones_julio: int = 0
+    infracciones_agosto: int = 0
+    infracciones_septiembre: int = 0
+    infracciones_octubre: int = 0
+    infracciones_noviembre: int = 0
+    infracciones_diciembre: int = 0
+    for telefono_de_infraccion in infracciones:
+       if infracciones[telefono_de_infraccion][0][5:7] == '01':
+           infracciones_enero += 1
+       elif infracciones[telefono_de_infraccion][0][5:7] == '02':
+           infracciones_febrero += 1
+       elif infracciones[telefono_de_infraccion][0][5:7] == '03':
+           infracciones_marzo += 1
+       elif infracciones[telefono_de_infraccion][0][5:7] == '04':
+           infracciones_abril += 1
+       elif infracciones[telefono_de_infraccion][0][5:7] == '05':
+           infracciones_mayo += 1
+       elif infracciones[telefono_de_infraccion][0][5:7] == '06':
+           infracciones_junio += 1
+       elif infracciones[telefono_de_infraccion][0][5:7] == '07':
+           infracciones_julio += 1
+       elif infracciones[telefono_de_infraccion][0][5:7] == '08':
+           infracciones_agosto += 1
+       elif infracciones[telefono_de_infraccion][0][5:7] == '09':
+           infracciones_septiembre += 1
+       elif infracciones[telefono_de_infraccion][0][5:7] == '10':
+           infracciones_octubre += 1
+       elif infracciones[telefono_de_infraccion][0][5:7] == '11':
+           infracciones_noviembre += 1
+       elif infracciones[telefono_de_infraccion][0][5:7] == '12':
+           infracciones_diciembre += 1
+    infracciones_por_mes: list = [infracciones_enero, infracciones_febrero, infracciones_marzo, infracciones_abril, infracciones_mayo, infracciones_junio, infracciones_julio, infracciones_agosto, infracciones_septiembre, infracciones_octubre, infracciones_noviembre, infracciones_diciembre]
+    meses: list = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    plt.bar(meses, infracciones_por_mes)
+    plt.title('Infracciones por mes')
+    plt.xlabel('Meses')
+    plt.ylabel('Infracciones')
+    plt.show()
+
+    
 
