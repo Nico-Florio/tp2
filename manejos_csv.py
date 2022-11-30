@@ -37,7 +37,7 @@ def crear_archivo(infracciones: dict):
 
 
 
-# Funcion que se encarga de leer archivos robados
+# Funcion que se encarga de leer los archivos robados
 def leer_archivo_txt() -> list:
     patentes_robadas: list = []  
     with open('robados.txt', 'r') as archivo_txt:
@@ -48,7 +48,7 @@ def leer_archivo_txt() -> list:
 
 
 
-#Funcion para mostrar los autos robados
+#Funcion que se encarga de mostrar los autos robados
 def robados(patentes_robadas: list):
     infracciones: list = []
     with open('multas.csv', 'r') as archivo_csv:
