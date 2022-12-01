@@ -3,6 +3,7 @@ from funciones import *
 from manejos_csv import *
 
 
+
 def main():
     cls()
     infracciones = leer_archivo()
@@ -32,7 +33,8 @@ def main():
             cls()
             infracciones_microcentro(infracciones)
         elif opcion == 4:
-            pass
+            patentes_robadas: list = leer_archivo_txt()
+            print(robados(patentes_robadas))
         elif opcion == 5:
             pass
         elif opcion == 6:

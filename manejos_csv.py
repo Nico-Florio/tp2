@@ -3,6 +3,8 @@ from funciones import *
 from utils import *
 from matplotlib import pyplot as plt
 
+
+
 def leer_archivo():
     infracciones: dict = {}
     with open('multas.csv', 'r') as archivo_csv:
@@ -17,6 +19,7 @@ def leer_archivo():
             ruta_audio: str = linea[6]
             infracciones[telefono] = (timestamp, telefono, latitud, longitud, ruta_foto, descripcion, ruta_audio)
     return infracciones
+
 
 
 # Con la información leída del archivo CSV, se pide crear un nuevo archivo CSV que contenga los siguientes 
